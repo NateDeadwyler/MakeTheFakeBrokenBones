@@ -110,6 +110,12 @@ class Play extends Phaser.Scene {
             this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
             this.physics.world.debugGraphic.clear()
         }, this)
+
+        this.sound.play('motor', {
+            volume: .5 , 
+            loop: true,
+            delay: 0,
+        }) 
             
 
     
@@ -138,6 +144,8 @@ class Play extends Phaser.Scene {
         this.clouds.tilePositionX+= this.gameSpeed / 6
         
         this.ramp.update()
+        //
+        
         
     }
 }

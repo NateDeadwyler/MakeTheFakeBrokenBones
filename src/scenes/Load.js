@@ -17,6 +17,7 @@ class Load extends Phaser.Scene {
        
 
         //load audio
+        this.load.audio('motor', './assets/motor.mp3')
        
 
     }
