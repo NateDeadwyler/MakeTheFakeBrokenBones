@@ -47,7 +47,7 @@ class Menu extends Phaser.Scene {
     //Click to next screen
     this.input.once('pointerdown', (pointer) =>  {
         console.log('Screen clicked!');
-        this.sound.play('yes')
+        this.sound.play('ui')
         this.scene.start('InstructionsScene')
         
     })

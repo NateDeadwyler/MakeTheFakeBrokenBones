@@ -131,7 +131,7 @@ class AirState extends State {
             console.log(scene.player.tempScore)  
             
             this.stateMachine.transition('driving')
-            scene.sound.play('yes')
+            scene.sound.play('ui')
             scene.player.flipCount = 0
             scene.player.tempScore = 0
         }

@@ -44,7 +44,7 @@ class Instructions extends Phaser.Scene {
 
         this.click.setInteractive()
         this.click.on('pointerdown', (pointer) =>  {
-            this.sound.play('yes')
+            this.sound.play('ui')
             this.scene.start('PlayScene')
 
         

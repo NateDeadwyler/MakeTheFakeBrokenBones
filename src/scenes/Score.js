@@ -59,7 +59,7 @@ class Score extends Phaser.Scene {
         //Return to menu on click
         this.input.once('pointerdown', (pointer) =>  {
             console.log('Screen clicked!');
-            this.sound.play('yes')
+            this.sound.play('ui')
             this.scene.start('MenuScene')
             
         })
