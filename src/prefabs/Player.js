@@ -11,10 +11,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // set custom driver properties 
         this.playerVelocity = 100    // in pixels
         this.angle = 0
-        this.tempScore = 0
-        this.score = this.tempScore.toLocaleString();
-        this.tempHighScore = 1275630
+        this.tempScore = +0
+        this.score = this.tempScore
+        this.tempHighScore = scene.sys.game.globals.highScore
         this.highScore = this.tempHighScore.toLocaleString()
+        this.lives = 3
 
         //Flip Variables
         this.halfF = false 
@@ -49,11 +50,11 @@ class DrivingState extends State {
     execute(scene, player) {
 
         // check angle of player and move to crash state if angle is bad
-        if (scene.player.angle < -45 || scene.player.angle > 45) {
+        if (scene.player.angle < -50 || scene.player.angle > 45) {
             this.stateMachine.transition('crash')
         }
         else {
-                scene.player.angle = 0 
+                scene.player.angle = 0
             }
         
         
@@ -74,6 +75,8 @@ class DrivingState extends State {
 
 class AirState extends State {
     enter(scene, player) {
+        scene.player.anims.stop()
+        scene.player.anims.play('drive')
 
     }
 
@@ -109,37 +112,51 @@ class AirState extends State {
             else{ 
                 if (scene.player.tricked == true) {
                     scene.player.flipCount *= 2
+                    
                 }
                 scene.player.tempScore += 100*scene.player.flipCount**2 + 50 
             }
-            scene.player.score = scene.player.tempScore.toLocaleString()
+            scene.player.score += scene.player.tempScore
+
+            // Flash the score you got from the trick next to the player in yellow
+            scene.playerScoreText = scene.add.text((scene.player.x+50), (scene.player.y-50), scene.player.tempScore.toLocaleString(), {
+                fontFamily: 'Comic Sans MS',
+                fontSize: '20px',
+                color: '#FFFF00'
+            }).setOrigin(0.5)
+            scene.time.delayedCall(1000, () => {
+                scene.playerScoreText.destroy()
+            })
             
             console.log(scene.player.tempScore)  
+            
             this.stateMachine.transition('driving')
+            scene.sound.play('yes')
             scene.player.flipCount = 0
+            scene.player.tempScore = 0
         }
 
         // Temporary value for if the player flips halfway, either forward or backward
         if (scene.player.angle == 177){
         
-            this.halfF = true
+            scene.player.halfF = true
         }
         else if (scene.player.angle == -177){
              
-            this.halfB = true
+            scene.player.halfB = true
         }
 
-        if (this.halfF == true && scene.player.angle == -30 ) {
+        if (scene.player.halfF == true && scene.player.angle == -30 ) {
             scene.player.flipCount++
-            this.halfF = false
-            this.halfB = false
+            scene.player.halfF = false
+            scene.player.halfB = false
             
         }
 
-        if (this.halfB == true && scene.player.angle == 30) {
+        if (scene.player.halfB == true && scene.player.angle == 30) {
             scene.player.flipCount+= 1 
-            this.halfF = false
-            this.halfB = false
+            scene.player.halfF = false
+            scene.player.halfB = false
             
         }
  
@@ -172,12 +189,17 @@ class TrickState extends State {
 
     execute(scene, player) {
         console.log(scene.player.flipCount)
+        console.log(scene.grounded)
+        console.log()
+
 
         //Check if grounded while supermanning
         if (scene.grounded == true && scene.player.superman == true) {
+            console.log(scene.grounded)
             scene.player.anims.stop()
             console.log('crash') 
             this.stateMachine.transition('crash')
+            console.log('crashtest')
         }
 
         //Check if the superman animation is playing
@@ -185,6 +207,7 @@ class TrickState extends State {
             console.log('no longer supermanning  ')
             scene.player.superman = false
             scene.player.tricked = true
+            scene.player.flipCount += 2
             this.stateMachine.transition('air')
         }
          
@@ -209,24 +232,24 @@ class TrickState extends State {
         // Temporary value for if the player flips halfway, either forward or backward
         if (scene.player.angle == 177){
         
-            this.halfF = true
+            scene.player.halfF = true
         }
         else if (scene.player.angle == -177){
              
-            this.halfB = true
+            scene.player.halfB = true
         }
 
-        if (this.halfF == true && scene.player.angle == -30 ) {
+        if (scene.player.halfF == true && scene.player.angle == -30 ) {
             scene.player.flipCount++
-            this.halfF = false
-            this.halfB = false
+            scene.player.halfF = false
+            scene.player.halfB = false
             
         }
 
-        if (this.halfB == true && scene.player.angle == 30) {
+        if (scene.player.halfB == true && scene.player.angle == 30) {
             scene.player.flipCount+= 1 
-            this.halfF = false
-            this.halfB = false
+            scene.player.halfF = false
+            scene.player.halfB = false
             
         }
         

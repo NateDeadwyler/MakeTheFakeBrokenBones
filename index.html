@@ -5,10 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Broken Bonez</title>
+    <style media='screen' type='text/css'>
+        @font-face {
+          font-family: 'font1';
+          src: url('./assets/Headhunter.ttf?v=1');
+          font-weight:400;
+          font-style: normal;
+        }
+    </style>
+    <div style="font-family:font1; position:absolute; left:-1000px; visibility:hidden;">.</div>
+
+  
 
     <script src="./lib/phaser.js"></script>
     <script src="./lib/StateMachine.js"></script>
     <script src="./src/scenes/Load.js"></script>
+    <script src="./src/scenes/Instructions.js"></script>
     <script src="./src/prefabs/Player.js"></script>
     <script src="./src/prefabs/Ramp.js"></script>
     <script src="./src/scenes/Menu.js"></script>

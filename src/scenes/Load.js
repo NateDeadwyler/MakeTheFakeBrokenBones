@@ -11,13 +11,17 @@ class Load extends Phaser.Scene {
         this.load.image('ramp', './assets/ramp.png');
         this.load.image('bones', './assets/Bones.png')
         this.load.image('clouds', './assets/clouds.png')
+        this.load.image('helmet', './assets/helmet.png')
       
-        // load spritesheet
+        // load Font
+        
     
        
 
         //load audio
         this.load.audio('motor', './assets/motor.mp3')
+        this.load.audio('music', './assets/GameRock.wav')
+        this.load.audio('yes', './assets/ui.wav')
        
 
     }
@@ -51,10 +55,10 @@ class Load extends Phaser.Scene {
     
         
         console.log('LoadScene')
-        this.scene.start('PlayScene')
+
     
     }
     update() {
-        this.scene.start('PlayScene')
+        this.scene.start('MenuScene')
     }
 }

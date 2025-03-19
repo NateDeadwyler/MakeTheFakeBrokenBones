@@ -90,6 +90,11 @@ class Play extends Phaser.Scene {
         //Add ramps
         this.ramp = new Ramp(this, 600, 432, 'ramp')
 
+        // Add helmet lives to bottom left corner
+        this.helmet3 = this.add.image(180, 550, 'helmet').setScale(2.2)
+        this.helmet2 = this.add.image(120, 550, 'helmet').setScale(2.2)
+        this.helmet1 = this.add.image(60, 550, 'helmet').setScale(2.2)
+
         // Add collision between player and ground
 
         this.physics.add.collider(this.player, this.physicsGround, () => {
@@ -112,10 +117,17 @@ class Play extends Phaser.Scene {
         }, this)
 
         this.sound.play('motor', {
+            volume: .3 , 
+            loop: true,
+            delay: 0,
+        }) 
+
+        this.sound.play('music', {
             volume: .5 , 
             loop: true,
             delay: 0,
         }) 
+            
             
 
     
@@ -129,23 +141,93 @@ class Play extends Phaser.Scene {
         this.player.update()
         this.scoreText.text = (`Player 1 \n${this.player.score}`)
 
-        if (this.player.anims.currentFrame.textureFrame === 5) {
-            this.time.delayedCall(3000, () => {
-            this.scene.restart()
+        // test for lives and remove helmets
+        if (this.player.anims.currentFrame.textureFrame === 5 && !this.player.isRespawning) {
 
-                
-            })
+            console.log('dead')
+
+            //Respawning trigger
+
+            this.player.isRespawning = true
+            
+            this.player.lives-- 
+
+            if (this.player.lives === 2) {
+                this.helmet3.destroy();
+                this.showDeathMessage(1);
+            } 
+            else if (this.player.lives === 1) {
+                this.helmet2.destroy();
+                this.showDeathMessage(3);
+            } 
+            else if (this.player.lives === 0) {
+                this.helmet1.destroy();
+                this.showDeathMessage(5);
+    
+                this.time.delayedCall(3000, () => {
+                    this.sound.stopAll();
+                    this.add.text(400, 300, 'GAME OVER', {
+                        fontFamily: 'font1',
+                        fontSize: '50px',
+                        color: '#FF0000',
+                    }).setOrigin(0.5);
+                    this.time.delayedCall(2000, () => {
+                        
+                        console.log(this.player.score)
+    
+                        this.scene.start('ScoreScene', { score: this.player.score })
+                        
+                    })            
+                });
+            } 
+            else {
+                this.respawnPlayer(); // Reset position
+            }
         }
-        
-          
-
-        // Game loop logic here
-        this.ground.tilePositionX+= this.gameSpeed
-        this.clouds.tilePositionX+= this.gameSpeed / 6
-        
-        this.ramp.update()
-        //
-        
-        
+    
+        // Game loop logic
+        this.ground.tilePositionX += this.gameSpeed;
+        this.clouds.tilePositionX += this.gameSpeed / 6;
+        this.ramp.update();
     }
+
+    respawnPlayer() {
+        this.time.delayedCall(2000, () => {
+            // Reset player position
+            this.player.setPosition(200, 400);
+            this.player.anims.play('drive');
+            this.player.isRespawning = false
+            this.player.angle = 0
+            this.player.grounded = false
+            this.player.flipCount = 0
+            this.player.superman = false
+            this.player.halfF = false
+            this.player.halfB = false
+            
+            this.gameSpeed = .75
+            this.ramp.x = 600
+            this.ramp.speed = 2
+            this.playerFSM.transition('driving')
+    
+        })
+    }   
+    //Broken Bones Death 
+    showDeathMessage(brokenBones) {
+        let deathText = this.add.text(400, 300, `${brokenBones} \nBROKEN BONEZ`, {
+            align: 'center',
+            fontFamily: 'font1',
+            fontSize: '50px',
+            color: '#FF0000',
+        }).setOrigin(0.5);
+
+        this.time.delayedCall(1000, () => {
+            deathText.destroy();
+            if (this.player.lives > 0) {
+                this.respawnPlayer();
+            }
+        });
+    }
+
+    
+
 }

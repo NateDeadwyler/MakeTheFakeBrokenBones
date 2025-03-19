@@ -15,7 +15,7 @@ let config = {
             debug: true
         }
     },
-    scene: [Load, Menu, Play, Score]
+    scene: [Load, Menu, Instructions, Play, Score]
 }
 
 const game = new Phaser.Game(config)
@@ -31,3 +31,5 @@ let borderPadding = borderUISize / 3
 
 // reserve keyboard bindings
 let keyFIRE, keyRESET, keyLEFT, keyRIGHT, keySPACE
+
+//
