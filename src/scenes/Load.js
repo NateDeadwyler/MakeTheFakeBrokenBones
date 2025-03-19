@@ -15,8 +15,8 @@ class Load extends Phaser.Scene {
       
         //load audio
         this.load.audio('motor', './assets/motor.mp3')
-        this.load.audio('music', './assets/GameRock.wav')
-        this.load.audio('yes', './assets/ui.wav')
+        this.load.audio('music', './assets/GameRock.mp3')
+        this.load.audio('yes', './assets/ui.mp3')
        
 
     }
