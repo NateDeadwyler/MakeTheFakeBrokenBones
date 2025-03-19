@@ -13,11 +13,6 @@ class Load extends Phaser.Scene {
         this.load.image('clouds', './assets/clouds.png')
         this.load.image('helmet', './assets/helmet.png')
       
-        // load Font
-        
-    
-       
-
         //load audio
         this.load.audio('motor', './assets/motor.mp3')
         this.load.audio('music', './assets/GameRock.wav')

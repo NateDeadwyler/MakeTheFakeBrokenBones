@@ -2,6 +2,8 @@
 // Created 2/24/25
 // Make the Fake: Broken Bonez from Regular Show
 // A 2D game where you do tricks to get points and try not to break your bonez!
+
+// The game usis audio, a particle emitter, a state machine, tilesprites, a spritesheet, bitmap text/custom font, physics, colliders and more!
 let config = {
     type: Phaser.AUTO,
     width: 800,

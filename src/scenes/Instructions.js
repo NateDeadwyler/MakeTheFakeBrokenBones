@@ -33,6 +33,8 @@ class Instructions extends Phaser.Scene {
 
         }).setOrigin(0.5)
 
+        //Click to start stuff
+
         this.click = this.add.text(400, 550, "Click here to start", {
             fontFamily: 'Comic Sans MS',
             fontSize: '20px',

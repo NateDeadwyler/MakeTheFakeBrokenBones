@@ -22,7 +22,7 @@ class Score extends Phaser.Scene {
         //Create a black background
         this.add.rectangle(400,300, this.game.config.width, this.game.config.height, 0x000000)
         //Add character sprite as decoration
-        this.add.sprite(150, 300, 'player', 2).setScale(5)
+        this.add.sprite(120, 300, 'player', 2).setScale(5)
         //Add scoreTitle text
         this.add.text(400, 100, 'High Scores', {
             fontFamily: 'font1',
@@ -43,10 +43,16 @@ class Score extends Phaser.Scene {
             color: '#FFFFFF',
         }).setOrigin(0.5)
 
+        //Credits
+        this.add.text(400, 550, 'Created by: Nate Deadwyler \nArt by:  Nate Deadwyler \n Music samples from \n Splice.com', {
+            fontSize: '10px',
+            align: 'center',
+        }).setOrigin(.5)
+
         //Add return to menu text
-        this.add.text(400, 500, 'Click to return to Menu', {
+        this.add.text(400, 450, 'Click to return to Menu', {
             fontFamily: 'font1',
-            fontSize: '50px',
+            fontSize: '40px',
             color: '#FFFFFF',
         }).setOrigin(0.5)
         

@@ -37,7 +37,14 @@ class Menu extends Phaser.Scene {
 
     }).setOrigin(0.5)
 
-    
+    // Add Click to start text
+    this.add.text(400, 500, 'Click to start', {
+        fontFamily: 'font1',
+        fontSize: '40px',
+        color: '#FF2222',
+    }).setOrigin(0.5)
+
+    //Click to next screen
     this.input.once('pointerdown', (pointer) =>  {
         console.log('Screen clicked!');
         this.sound.play('yes')

@@ -265,6 +265,20 @@ class CrashState extends State {
         scene.player.on('animationcomplete', () => {
         scene.player.setFrame(5)  
         })
+        this.emitter = scene.add.particles(scene.player.x, scene.player.y+25, 'bones',{
+            speed: 50,
+            scale: { start: 0.3, end: 0 },
+            blendMode: 'ADD',
+            lifespan: 500,
+            gravityY:-10,
+            angle: {min: 180, max: 360},
+        })
+        this.emitter.setDepth(-1)
+
+        scene.time.delayedCall(2000, () => {
+            this.emitter.destroy()
+        })
+        
         scene.gameSpeed = 0
         scene.ramp.speed = 0
     }

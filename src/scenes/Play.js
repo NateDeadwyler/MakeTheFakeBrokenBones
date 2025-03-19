@@ -116,12 +116,14 @@ class Play extends Phaser.Scene {
             this.physics.world.debugGraphic.clear()
         }, this)
 
+        // Add sound
         this.sound.play('motor', {
             volume: .3 , 
             loop: true,
             delay: 0,
         }) 
 
+        // Add music
         this.sound.play('music', {
             volume: .5 , 
             loop: true,
@@ -150,6 +152,7 @@ class Play extends Phaser.Scene {
 
             this.player.isRespawning = true
             
+            //Life counter and helmet remover
             this.player.lives-- 
 
             if (this.player.lives === 2) {
@@ -163,6 +166,8 @@ class Play extends Phaser.Scene {
             else if (this.player.lives === 0) {
                 this.helmet1.destroy();
                 this.showDeathMessage(5);
+
+                // Game Over
     
                 this.time.delayedCall(3000, () => {
                     this.sound.stopAll();
@@ -174,6 +179,8 @@ class Play extends Phaser.Scene {
                     this.time.delayedCall(2000, () => {
                         
                         console.log(this.player.score)
+
+                        // Go to score scene
     
                         this.scene.start('ScoreScene', { score: this.player.score })
                         
@@ -190,6 +197,8 @@ class Play extends Phaser.Scene {
         this.clouds.tilePositionX += this.gameSpeed / 6;
         this.ramp.update();
     }
+
+    // Respawn player function
 
     respawnPlayer() {
         this.time.delayedCall(2000, () => {
@@ -211,7 +220,9 @@ class Play extends Phaser.Scene {
     
         })
     }   
+
     //Broken Bones Death 
+    
     showDeathMessage(brokenBones) {
         let deathText = this.add.text(400, 300, `${brokenBones} \nBROKEN BONEZ`, {
             align: 'center',
