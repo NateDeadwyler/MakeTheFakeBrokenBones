@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.collision = false
         this.grounded = true
         this.gameSpeed = .75
+        this.physics.world.drawDebug = false
 
         //Add Clouds
         this.clouds = this.add.tileSprite(400, 300, this.game.width, this.game.height, 'clouds').setOrigin(.5,1).setScale(6.3, 4)
