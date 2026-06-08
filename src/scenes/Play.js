@@ -111,12 +111,6 @@ class Play extends Phaser.Scene {
             
         })
 
-        // Debug key 
-        this.input.keyboard.on('keydown-D', function() {
-            this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
-            this.physics.world.debugGraphic.clear()
-        }, this)
-
         // Add sound
         this.sound.play('motor', {
             volume: .3 , 
